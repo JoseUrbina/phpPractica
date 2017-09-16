@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Practice Javascript</title>
+</head>
+<body>
+	<script>
+		
+		function Persona(nombre, apellido, edad)
+		{
+			var _nombre = nombre || "";
+			var _apellido = apellido || "";
+			var _edad = edad || 0;
+
+			Object.defineProperties(this, {
+		        "Nombre": {
+		            get: function () {
+		                return _nombre;
+		            },
+		            set: function (value) {
+		                _nombre = value;
+		            }
+		        }
+		    });
+
+		    Object.defineProperties(this, {
+		        "Apellido": {
+		            get: function () {
+		                return _apellido;
+		            },
+		            set: function (value) {
+		                _apellido = value;
+		            }
+		        }
+		    });
+
+		    Object.defineProperties(this, {
+		        "Edad": {
+		            get: function () {
+		                return _edad;
+		            },
+		            set: function (value) {
+		                _edad = value;
+		            }
+		        }
+		    });
+		}
+
+		Persona.prototype.NombreCompleto = function()
+		{
+			return this.Nombre + " " + this.Apellido;
+		}
+
+		function Estudiante(notaFinal, nombre = "", apellido = "", edad =0)
+		{
+			// Inheritance
+			// 
+			Persona.call(this, nombre, apellido, edad);
+
+			var _notaFinal = notaFinal || 0;			
+
+			Object.defineProperties(this, {
+		        "NotaFinal": {
+		            get: function () {
+		                return _notaFinal;
+		            },
+		            set: function (value) {
+		                _notaFinal = value;
+		            }
+		        }
+		    });
+		}
+
+		Estudiante.prototype = new Persona;
+		Estudiante.prototype.constructor = Estudiante;
+
+		Estudiante.prototype.Message = function()
+		{
+			return this.NombreCompleto() + " obtuvo un puntaje de " + this.NotaFinal; 
+		}
+
+		var yo = new Estudiante(100, "José Antonio", "Urbina Gutiérrez", 24);
+
+		console.log(yo.Message());
+	</script>
+</body>
+</html>
